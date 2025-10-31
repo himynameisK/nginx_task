@@ -11,6 +11,10 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 # Настраиваем шаблонизатор
 templates = Jinja2Templates(directory="templates")
 
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy"}
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
     return templates.TemplateResponse(
